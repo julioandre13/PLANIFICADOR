@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Maestro 2026 | Julio Cuestas</title>
+    <meta name="description" content="Plan financiero maestro 2026 - Gestión inteligente de inversiones y cronograma de pagos">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="mac-window">
+    <!-- Title Bar -->
+    <div class="title-bar">
+        <div class="traffic-lights">
+            <div class="light close"></div>
+            <div class="light minimize"></div>
+            <div class="light maximize"></div>
+        </div>
+        <div class="tabs-container">
+            <div class="segmented-control">
+                <button class="tab-btn active" onclick="switchTab('tab-db', this)" id="btn-db">📊 Base de Datos</button>
+                <button class="tab-btn" onclick="switchTab('tab-crono', this)" id="btn-crono">📅 Cronograma</button>
+            </div>
+        </div>
+        <div class="title-actions">
+            <button class="icon-btn" id="theme-btn" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+            <button class="icon-btn" onclick="toggleChat()" title="Chat IA">💬</button>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content-area">
+        <!-- TAB 1: Base de Datos -->
+        <div id="tab-db" class="tab-content active">
+            <div class="top-grid">
+                <!-- Cuenta Colchón -->
+                <div class="widget">
+                    <h2><span class="emoji">🛡️</span> Cuenta Colchón (Emergencias)</h2>
+                    <div class="input-row">
+                        <label>Ahorro Semanal Fijo (S/)</label>
+                        <input type="number" id="v-colchon" value="20" oninput="updateBase('colchon', this.value)">
+                    </div>
+                    <div class="total-box">
+                        <span id="out-colchon" style="color: var(--apple-green);">S/ 1,040.00</span>
+                        <small>Ahorro Anual Independiente</small>
+                    </div>
+                </div>
+
+                <!-- Operaciones del Ciclo -->
+                <div class="widget">
+                    <h2><span class="emoji">🎓</span> Operaciones del Ciclo (2do Ciclo)</h2>
+                    <div class="input-row">
+                        <label>Mensualidad UTP (S/)</label>
+                        <input type="number" id="v-utp" value="550" oninput="updateBase('utp', this.value)">
+                    </div>
+                    <div class="input-row">
+                        <label>Meses del Ciclo</label>
+                        <input type="number" id="v-meses-ciclo" value="5" oninput="updateBase('mesesCiclo', this.value)">
+                    </div>
+                    <div class="input-row">
+                        <label>Gastos Semanales Base (S/)</label>
+                        <input type="number" id="v-gastos" value="30" oninput="updateBase('gastos', this.value)">
+                    </div>
+                    <div class="total-box">
+                        <span id="out-ciclo" style="color: var(--apple-orange);">S/ 3,350.00</span>
+                        <small id="label-meses-ciclo">Compromiso Total del Ciclo (5 meses)</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roadmap de Inversiones -->
+            <div class="widget">
+                <div class="section-header">
+                    <h2><span class="emoji">🚀</span> Roadmap de Inversiones</h2>
+                </div>
+                <div id="roadmap-container"></div>
+                <button class="add-phase-btn" onclick="addPhase()">+ Agregar Nueva Fase</button>
+                <div class="total-box grand-total" style="margin-top: 20px;">
+                    <small style="color: var(--apple-blue); text-transform: uppercase; letter-spacing: 1px; font-weight: 700;">Capital Total Requerido 2026</small>
+                    <span id="out-capital">S/ 23,165.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Cronograma -->
+        <div id="tab-crono" class="tab-content">
+            <div class="fijo-banner">
+                <div><strong>Costo Fijo Mensual:</strong> S/ <span id="label-fijo-mes">670</span></div>
+                <div style="color: var(--apple-green); font-weight: 600;">Base Operativa (UTP + Semanal)</div>
+            </div>
+
+            <div class="crono-controls">
+                <label>Vista:</label>
+                <select onchange="changeViewMode(this.value)" id="view-mode-select">
+                    <option value="mes">Por Mes</option>
+                    <option value="bimestre">Por Bimestre</option>
+                    <option value="trimestre" selected>Por Trimestre</option>
+                </select>
+                <label style="margin-left: 15px;">Agregar mes:</label>
+                <select id="add-month-select"><option value="">Seleccionar...</option></select>
+                <button class="add-btn" onclick="addMonth()">+ Agregar</button>
+            </div>
+
+            <div id="crono-container"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Chat Panel -->
+<div class="chat-backdrop" id="chat-backdrop" onclick="toggleChat()"></div>
+<div class="chat-overlay" id="chat-panel">
+    <div class="chat-header">
+        <h3>✨ Asistente Financiero IA</h3>
+        <button class="chat-close-btn" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Pregunta sobre tu plan financiero...">
+        <button class="chat-send-btn" onclick="sendChat()">➤</button>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
